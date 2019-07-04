@@ -6,11 +6,10 @@ import java.util.Random;
 
 import blackjack.models.Card;
 
-public class CardGenerator implements CardManagerInterface {
+public class CardDealer {
 	private final int maxCountOfUniqueCards = 4; //How many of a single card, example: 4 Spades (Can only be 4 of them)
 	ArrayList<Card> cards = new ArrayList<Card>();
 
-	@Override
 	public Card getCard() {
 		Card card = generateCard();
 		while(isOverMaxCount(card)) {
@@ -21,8 +20,7 @@ public class CardGenerator implements CardManagerInterface {
 		return card;
 	}
 
-	@Override
-	public ArrayList<Card> getStartingHand() {
+	public ArrayList<Card> drawStartingHand() {
 		ArrayList<Card> startingHand = new ArrayList<Card>();
 		startingHand.add(getCard());
 		startingHand.add(getCard());
@@ -31,7 +29,9 @@ public class CardGenerator implements CardManagerInterface {
 	
 	private Card generateCard() {
 		Card card = new Card();
-		card.setNumber(generateCardNumber());
+		int cardNumber = generateRandomNumber(2, 14);
+		card.setWorth(cardNumber);
+		card.setNumber(generateCardNumber(cardNumber));
 		card.setSuit(generateCardSuit());
 		
 		return card;
@@ -42,17 +42,18 @@ public class CardGenerator implements CardManagerInterface {
 		return countOfCardInCards >= maxCountOfUniqueCards;
 	}
 	
-	private String generateCardNumber() {
-		int randomNumber = generateRandomNumber(2, 14);
-		switch(randomNumber) {
+	private String generateCardNumber(int cardNumber) {
+		switch(cardNumber) {
 			case 11:
 				return "Jack";
 			case 12:
 				return "Queen";
 			case 13:
-				return "Queen";
+				return "King";
+			case 14:
+				return "Ace";
 			default:
-				return String.valueOf(randomNumber);
+				return String.valueOf(cardNumber);
 		}
 	}
 	

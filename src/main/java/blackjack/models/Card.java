@@ -1,8 +1,17 @@
 package blackjack.models;
 
 public class Card {
+	private int worth;
 	private String number;
 	private String suit;
+	
+	public int getWorth() {
+		return worth;
+	}
+	
+	public void setWorth(int worth) {
+		this.worth = worth;
+	}
 	
 	public String getNumber() {
 		return number;

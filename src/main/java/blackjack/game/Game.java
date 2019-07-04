@@ -1,31 +1,31 @@
 package blackjack.game;
 
-import java.util.ArrayList;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import blackjack.cardManager.CardGenerator;
-import blackjack.cardManager.CardManagerInterface;
-import blackjack.models.Card;
+import blackjack.cardManager.CardDealer;
+import blackjack.cardManager.Player;
 
 @Controller
 @RequestMapping("/")
 public class Game {
-	ArrayList<Card> playerHand;
-	CardManagerInterface cardManager;
+	Player player;
+	CardDealer cardDealer;
 	
 	@GetMapping
 	public String getIndex(Model model) {
 		initGame();
-		model.addAttribute("playerHand", playerHand);
+		model.addAttribute("playerHand", player.getPlayerHand());
+		model.addAttribute("handWorth", player.getHandWorth());
 		return "index";
 	}
 	
 	private void initGame() {
-		cardManager = new CardGenerator();
-		playerHand = cardManager.getStartingHand();
+		cardDealer = new CardDealer();
+		player = new Player();
+		player.addCards(cardDealer.drawStartingHand());
+		//TODO dealer draw cards
 	}
 }

@@ -13,6 +13,8 @@
 			<span th:text="${card.number}"></span>
 			<span th:text="${card.suit}"></span>
 		</ul>
+		<h3>Hand worth: </h3>
+		<h4 th:text="${handWorth}"></h4>
 		
 		<script type="text/javascript" th:src=@{/plugins/jquery/jquery.js}></script>
 		<script type="text/javascript" th:src=@{/plugins/bootstrap/js/bootstrap.min.js}></script>
