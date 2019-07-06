@@ -2,23 +2,23 @@ package blackjack.models;
 
 public class Card {
 	private int worth;
-	private String number;
+	private String name;
 	private String suit;
 	
-	public int getWorth() {
+	public int getValue() {
 		return worth;
 	}
 	
-	public void setWorth(int worth) {
+	public void setValue(int worth) {
 		this.worth = worth;
 	}
 	
-	public String getNumber() {
-		return number;
+	public String getName() {
+		return name;
 	}
 	
-	public void setNumber(String number) {
-		this.number = number;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public String getSuit() {
@@ -31,7 +31,7 @@ public class Card {
 	
 	public boolean equals(Card compareTo) {
 		boolean sameSuit = suit == compareTo.getSuit();
-		boolean sameNumber = number == compareTo.getNumber();
+		boolean sameNumber = name == compareTo.getName();
 		return sameSuit && sameNumber;
 	}
 }

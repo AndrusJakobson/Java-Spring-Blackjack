@@ -5,28 +5,34 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import blackjack.cardManager.CardDealer;
+import blackjack.cardManager.CardManager;
+import blackjack.cardManager.Dealer;
 import blackjack.cardManager.Player;
+import blackjack.cardManager.Gambler;
 
 @Controller
 @RequestMapping("/")
 public class Game {
-	Player player;
-	CardDealer cardDealer;
+	Player gambler;
+	Player dealer;
+	CardManager cardManager;
 	
 	@GetMapping
 	public String getIndex(Model model) {
 		initGame();
-		model.addAttribute("playerHand", player.getPlayerHand());
-		model.addAttribute("handWorth", player.getHandWorth());
+		model.addAttribute("gamblerHand", gambler.getPlayerHand());
+		model.addAttribute("gamblerValue", gambler.getHandValue());
+		model.addAttribute("dealerHand", dealer.getPlayerHand());
+		model.addAttribute("dealerValue", dealer.getHandValue());
 		
 		return "index";
 	}
 	
 	private void initGame() {
-		cardDealer = new CardDealer();
-		player = new Player();
-		player.addCards(cardDealer.drawStartingHand());
-		//TODO dealer draw cards
+		cardManager = new CardManager();
+		gambler = new Gambler();
+		dealer = new Dealer();
+		gambler.addCards(cardManager.drawStartingHand());
+		dealer.addCard(cardManager.getCard());
 	}
 }

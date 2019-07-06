@@ -1,15 +1,14 @@
 package blackjack.cardManager;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
+import blackjack.constants.Constants;
 import blackjack.models.Card;
 
-public class CardDealer {
-	private final int maxCountOfUniqueCards = 4; //How many of a single card, example: 4 Spades (Can only be 4 of them)
-	ArrayList<Card> cards = new ArrayList<Card>();
-
+public class CardManager {
+	private ArrayList<Card> cards = new ArrayList<Card>();
+	
 	public Card getCard() {
 		Card card = generateCard();
 		while(isOverMaxCardCount(card)) {
@@ -29,22 +28,21 @@ public class CardDealer {
 	
 	private Card generateCard() {
 		Card card = new Card();
-		int cardNumber = generateRandomNumber(2, 14);
+		int randomNumber = generateRandomNumber(2, 14);
 		
-		card.setWorth(generateCardWorth(cardNumber));
-		card.setNumber(generateCardNumber(cardNumber));
+		card.setValue(generateCardWorth(randomNumber));
+		card.setName(generateCardName(randomNumber));
 		card.setSuit(generateCardSuit());
 		
 		return card;
 	}
 	
 	private boolean isOverMaxCardCount(Card card) {
-		int cardInCardsCount = getCardInCardsCount(card);
-		System.out.println(cards);
-		return cardInCardsCount >= maxCountOfUniqueCards;
+		int cardInCardsCount = getCardCount(card);
+		return cardInCardsCount >= Constants.maxCardDuplicate;
 	}
 	
-	private int getCardInCardsCount(Card cardToCount) {
+	private int getCardCount(Card cardToCount) {
 		int counter = 0;
 		for(Card card : cards) {
 			if(card.equals(cardToCount)) {
@@ -55,27 +53,27 @@ public class CardDealer {
 	}
 	
 	private int generateCardWorth(int cardNumber) {
-		boolean isFaceCard = cardNumber > 10 && cardNumber < 14;
-		boolean isAce = cardNumber == 14;
+		boolean isFaceCard = cardNumber > Constants.faceCardValue && cardNumber < Constants.aceNumber;
+		boolean isAce = cardNumber == Constants.aceNumber;
 		
 		if(isAce) {
-			return 11;
+			return Constants.aceHighValue;
 		}else if(isFaceCard) {
-			return 10;
+			return Constants.faceCardValue;
 		}
 		return cardNumber;
 	}
 	
-	private String generateCardNumber(int cardNumber) {
+	private String generateCardName(int cardNumber) {
 		switch(cardNumber) {
 			case 11:
-				return "Jack";
+				return Constants.jack;
 			case 12:
-				return "Queen";
+				return Constants.queen;
 			case 13:
-				return "King";
+				return Constants.king;
 			case 14:
-				return "Ace";
+				return Constants.ace;
 			default:
 				return String.valueOf(cardNumber);
 		}
@@ -85,13 +83,13 @@ public class CardDealer {
 		int randomNumber = generateRandomNumber(1, 4); 
 		switch(randomNumber) {
 			case 1:
-				return "Spades";
+				return Constants.spades;
 			case 2:
-				return "hearts";
+				return Constants.hearts;
 			case 3:
-				return "diamonds";
+				return Constants.diamonds;
 			default:
-				return "clubs";
+				return Constants.clubs;
 		}
 	}
 	

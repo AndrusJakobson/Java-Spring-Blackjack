@@ -2,36 +2,47 @@ package blackjack.cardManager;
 
 import java.util.ArrayList;
 
+import blackjack.constants.Constants;
 import blackjack.models.Card;
 
 public class Player {
-	private ArrayList<Card> playerHand = new ArrayList<Card>();
-	private int handWorth = 0;
+	protected ArrayList<Card> playerHand = new ArrayList<Card>();
+	protected int handValue = 0;
 	
-	private void addToHandWorth(int addition) {
-		handWorth+= addition;
+	public void sethandValue(int handWorth) {
+		this.handValue = handWorth;
 	}
 	
-	private void deductFromHandWorth(int deduction) {
-		handWorth-= deduction;
+	public int getHandValue() {
+		return handValue;
 	}
 	
-	public void sethandWorth(int handWorth) {
-		this.handWorth = handWorth;
-	}
-	
-	public int getHandWorth() {
-		return handWorth;
-	}
-
 	public ArrayList<Card> getPlayerHand(){
 		return playerHand;
 	}
 	
 	public void addCard(Card card) {
 		playerHand.add(card);
-		addToHandWorth(card.getWorth());
-		lowerAceWorthWhenBust();
+		increaseHandValue(card.getValue());
+		lowerAceValueWhenBust();
+	}
+	
+	protected void increaseHandValue(int increasement) {
+		handValue+= increasement;
+	}
+	
+	protected void reduceHandValue(int reduction) {
+		handValue-= reduction;
+	}
+	
+	private void lowerAceValueWhenBust() {
+		if(willBust()) {
+			lowerAceValue();
+		}
+	}
+	
+	private boolean willBust() {
+		return handValue > 21;
 	}
 	
 	public void addCards(ArrayList<Card> cards) {
@@ -40,34 +51,24 @@ public class Player {
 		}
 	}
 	
-	private void lowerAceWorthWhenBust() {
-		if(willBust()) {
-			lowerAceWorth();
-		}
-	}
-	
-	private boolean willBust() {
-		return handWorth > 21;
-	}
-	
-	private void lowerAceWorth() {
+	private void lowerAceValue() {
 		for(Card card : playerHand) {
-			if(isHighWorthAce(card)) {
-				card.setWorth(1);
-				deductFromHandWorth(10);
+			if(isHighValueAce(card)) {
+				card.setValue(Constants.aceLowValue);
+				reduceHandValue(Constants.aceValueDifference);
 				break;
 			}
 		}
 	}
 	
 	private boolean isAce(Card card) {
-		String cardNumber = card.getNumber();
-		return cardNumber.equals("Ace");
+		String cardName = card.getName();
+		return cardName.equals(Constants.ace);
 	}
 	
-	private boolean isHighWorthAce(Card card) {
+	private boolean isHighValueAce(Card card) {
 		if(isAce(card)) {
-			return card.getWorth() == 11;
+			return card.getValue() == Constants.aceHighValue;
 		}
 		return false;
 	}
