@@ -12,7 +12,7 @@ public class CardDealer {
 
 	public Card getCard() {
 		Card card = generateCard();
-		while(isOverMaxCount(card)) {
+		while(isOverMaxCardCount(card)) {
 			card = generateCard();
 		}
 		
@@ -30,16 +30,40 @@ public class CardDealer {
 	private Card generateCard() {
 		Card card = new Card();
 		int cardNumber = generateRandomNumber(2, 14);
-		card.setWorth(cardNumber);
+		
+		card.setWorth(generateCardWorth(cardNumber));
 		card.setNumber(generateCardNumber(cardNumber));
 		card.setSuit(generateCardSuit());
 		
 		return card;
 	}
 	
-	private boolean isOverMaxCount(Card card) {
-		int countOfCardInCards = Collections.frequency(cards, card);
-		return countOfCardInCards >= maxCountOfUniqueCards;
+	private boolean isOverMaxCardCount(Card card) {
+		int cardInCardsCount = getCardInCardsCount(card);
+		System.out.println(cards);
+		return cardInCardsCount >= maxCountOfUniqueCards;
+	}
+	
+	private int getCardInCardsCount(Card cardToCount) {
+		int counter = 0;
+		for(Card card : cards) {
+			if(card.equals(cardToCount)) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+	
+	private int generateCardWorth(int cardNumber) {
+		boolean isFaceCard = cardNumber > 10 && cardNumber < 14;
+		boolean isAce = cardNumber == 14;
+		
+		if(isAce) {
+			return 11;
+		}else if(isFaceCard) {
+			return 10;
+		}
+		return cardNumber;
 	}
 	
 	private String generateCardNumber(int cardNumber) {
@@ -71,9 +95,9 @@ public class CardDealer {
 		}
 	}
 	
-	private int generateRandomNumber(int start, int end) {
+	private int generateRandomNumber(int min, int max) {
 		Random random = new Random();
-		return random.nextInt(end - start) + start;
+		return random.nextInt((max - min) + 1) + min;
 	}
 
 }

@@ -28,4 +28,10 @@ public class Card {
 	public void setSuit(String suit) {
 		this.suit = suit;
 	}
+	
+	public boolean equals(Card compareTo) {
+		boolean sameSuit = suit == compareTo.getSuit();
+		boolean sameNumber = number == compareTo.getNumber();
+		return sameSuit && sameNumber;
+	}
 }

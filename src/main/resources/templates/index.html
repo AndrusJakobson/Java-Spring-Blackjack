@@ -7,14 +7,25 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/custom/custom.css}"/>
 	</head>
 	<body>
-		<h1>Blackjack</h1>
-		<h3>Player Hand:</h3>
-		<ul th:each="card : ${playerHand}">
-			<span th:text="${card.number}"></span>
-			<span th:text="${card.suit}"></span>
-		</ul>
-		<h3>Hand worth: </h3>
-		<h4 th:text="${handWorth}"></h4>
+
+		<div th:if="${handWorth > 21}">
+			<h1>You busted! Hand worth over 21!</h1>
+		</div>
+		
+		<!-- <div th:unless="${handWorth > 21}"> -->
+			<h1>Blackjack</h1>
+			<br>
+			<h3>Player Hand:</h3>
+			<div th:each="card : ${playerHand}">
+				<span th:text="${card.number}"></span>
+				<span>of</span>
+				<span th:text="${card.suit}"></span>
+				<span th:text="${card.worth}"></span>
+				<br>
+			</div>
+			<h3>Hand worth: </h3>
+			<h4 th:text="${handWorth}"></h4>
+		<!-- </div> <!-- -->
 		
 		<script type="text/javascript" th:src=@{/plugins/jquery/jquery.js}></script>
 		<script type="text/javascript" th:src=@{/plugins/bootstrap/js/bootstrap.min.js}></script>

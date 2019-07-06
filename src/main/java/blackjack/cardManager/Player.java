@@ -31,6 +31,7 @@ public class Player {
 	public void addCard(Card card) {
 		playerHand.add(card);
 		addToHandWorth(card.getWorth());
+		lowerAceWorthWhenBust();
 	}
 	
 	public void addCards(ArrayList<Card> cards) {
@@ -39,25 +40,34 @@ public class Player {
 		}
 	}
 	
+	private void lowerAceWorthWhenBust() {
+		if(willBust()) {
+			lowerAceWorth();
+		}
+	}
 	
+	private boolean willBust() {
+		return handWorth > 21;
+	}
 	
-	
-	public void lowerAceWorth() {
+	private void lowerAceWorth() {
 		for(Card card : playerHand) {
 			if(isHighWorthAce(card)) {
 				card.setWorth(1);
+				deductFromHandWorth(10);
+				break;
 			}
 		}
 	}
 	
 	private boolean isAce(Card card) {
-		String cardSuit = card.getSuit();
-		return cardSuit.equals("Ace");
+		String cardNumber = card.getNumber();
+		return cardNumber.equals("Ace");
 	}
 	
 	private boolean isHighWorthAce(Card card) {
 		if(isAce(card)) {
-			return card.getWorth() == 14;
+			return card.getWorth() == 11;
 		}
 		return false;
 	}

@@ -19,6 +19,7 @@ public class Game {
 		initGame();
 		model.addAttribute("playerHand", player.getPlayerHand());
 		model.addAttribute("handWorth", player.getHandWorth());
+		
 		return "index";
 	}
 	
