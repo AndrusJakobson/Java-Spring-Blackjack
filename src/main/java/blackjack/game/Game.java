@@ -21,10 +21,7 @@ public class Game {
 	public String getIndex(Model model) {
 		initGame();
 		model.addAttribute("gamblerHand", gambler.getPlayerHand());
-		model.addAttribute("gamblerValue", gambler.getHandValue());
 		model.addAttribute("dealerHand", dealer.getPlayerHand());
-		model.addAttribute("dealerValue", dealer.getHandValue());
-		
 		return "index";
 	}
 	

@@ -1,16 +1,18 @@
 package blackjack.models;
 
+import blackjack.constants.Constants;
+
 public class Card {
-	private int worth;
+	private int value;
 	private String name;
 	private String suit;
 	
 	public int getValue() {
-		return worth;
+		return value;
 	}
 	
-	public void setValue(int worth) {
-		this.worth = worth;
+	public void setValue(int value) {
+		this.value = value;
 	}
 	
 	public String getName() {
@@ -27,6 +29,14 @@ public class Card {
 	
 	public void setSuit(String suit) {
 		this.suit = suit;
+	}
+	
+	public boolean isAce() {
+		return name.equals(Constants.ace);
+	}
+	
+	public boolean hasHighValue() {
+		return value == Constants.aceHighValue;
 	}
 	
 	public boolean equals(Card compareTo) {

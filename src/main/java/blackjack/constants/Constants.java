@@ -1,6 +1,7 @@
 package blackjack.constants;
 
 public final class Constants {
+	public static final int maxHandValue = 21;
 	public static final int aceNumber = 14;
 	public static final int aceHighValue = 11;
 	public static final int aceValueDifference = 10;

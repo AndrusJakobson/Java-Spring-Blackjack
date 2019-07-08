@@ -18,7 +18,7 @@
 			<div class="row">
 				<div class="col-sm">
 					<h3>Players Hand:</h3>
-					<div th:each="card : ${gamblerHand}">
+					<div th:each="card : ${gamblerHand.cardList}">
 						<span th:text="${card.name}"></span>
 						<span>of</span>
 						<span th:text="${card.suit}"></span>
@@ -26,11 +26,11 @@
 						<br>
 					</div>
 					<h3>Hand value: </h3>
-					<h4 th:text="${gamblerValue}"></h4>
+					<h4 th:text="${gamblerHand.value}"></h4>
 				</div>
 				<div class="col-sm">
 					<h3>Dealers Hand:</h3>
-					<div th:each="card : ${dealerHand}">
+					<div th:each="card : ${dealerHand.cardList}">
 						<span th:text="${card.name}"></span>
 						<span>of</span>
 						<span th:text="${card.suit}"></span>
@@ -38,7 +38,7 @@
 						<br>
 					</div>
 					<h3>Hand value: </h3>
-					<h4 th:text="${dealerValue}"></h4>
+					<h4 th:text="${dealerHand.value}"></h4>
 				</div>
 			</div>
 		</div>
