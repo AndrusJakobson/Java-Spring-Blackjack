@@ -24,7 +24,7 @@ public class CardList {
 		cardList.add(card);
 		listValue+= card.getValue();
 		
-		if(willBust()) {
+		if(isOverMaxValue()) {
 			lowerAceValue();
 		}
 	}
@@ -35,7 +35,7 @@ public class CardList {
 		}
 	}
 	
-	private boolean willBust() {
+	public boolean isOverMaxValue() {
 		return listValue > Constants.maxHandValue;
 	}
 	
@@ -44,6 +44,9 @@ public class CardList {
 			if(card.isAce() && card.hasHighValue()) {
 				card.setValue(Constants.aceLowValue);
 				listValue-= Constants.aceValueDifference;
+				if(!isOverMaxValue()) {
+					break;
+				}
 			}
 		}
 	}

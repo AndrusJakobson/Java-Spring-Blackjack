@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org">
+	<div id="playerHands" th:fragment="playerHand">
+		<h3>Gamblers Hand:</h3>
+		<div th:each="card : ${gamblerHand.cardList}">
+			<span th:text="${card.name}"></span>
+			<span>of</span>
+			<span th:text="${card.suit}"></span>
+			<span> | Value: <span th:text="${card.value}"></span></span>
+			<br>
+		</div>
+		<h3>Hand value: </h3>
+		<h4 th:text="${gamblerHand.value}"></h4>
+	</div>
+</html>

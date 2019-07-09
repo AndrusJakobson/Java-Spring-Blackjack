@@ -12,6 +12,10 @@ public class Player {
 		return playerHand;
 	}
 	
+	public boolean isOverMaxValue() {
+		return playerHand.isOverMaxValue();
+	}
+	
 	public void addCard(Card card) {
 		playerHand.add(card);
 	}

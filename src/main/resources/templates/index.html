@@ -7,27 +7,12 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/custom/custom.css}"/>
 	</head>
 	<body>
-
-		<div th:if="${handWorth > 21}">
-			<h1>You busted! Hand worth over 21!</h1><br>
-		</div>
-		
 		<div class="container">
 			<h1>Blackjack</h1>
 			<br>
 			<div class="row">
-				<div class="col-sm">
-					<h3>Players Hand:</h3>
-					<div th:each="card : ${gamblerHand.cardList}">
-						<span th:text="${card.name}"></span>
-						<span>of</span>
-						<span th:text="${card.suit}"></span>
-						<span> | Value: <span th:text="${card.value}"></span></span>
-						<br>
-					</div>
-					<h3>Hand value: </h3>
-					<h4 th:text="${gamblerHand.value}"></h4>
-				</div>
+				<div th:insert="fragments/hand" class="col-sm"></div>
+				
 				<div class="col-sm">
 					<h3>Dealers Hand:</h3>
 					<div th:each="card : ${dealerHand.cardList}">
@@ -41,6 +26,9 @@
 					<h4 th:text="${dealerHand.value}"></h4>
 				</div>
 			</div>
+			
+			<h4 class="action addCard">Add card</h4>
+			
 		</div>
 
 		<script type="text/javascript" th:src=@{/plugins/jquery/jquery.js}></script>
